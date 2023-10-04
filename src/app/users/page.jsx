@@ -1,8 +1,6 @@
-import api from "../services/api"
-import UserItem from "./userItem"
 
 export default async function Users() {
-	// const userList = await api.getUsers()
+  // const userList = await api.getUsers()
 
 	const dummyUserList = {
 		status: 200,
@@ -33,13 +31,6 @@ export default async function Users() {
 
     return (
       <main>
-        <div className="w-screen">
-          {
-			dummyUserList.status == 200 ? dummyUserList.data.map((item) => {
-				return <UserItem data={item} key={item.user_id}/>
-			}) : dummyUserList.status
-		  }
-        </div>
       </main>
     )
   }
