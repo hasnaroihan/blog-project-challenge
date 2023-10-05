@@ -1,7 +1,7 @@
 import './globals.css';
+import Navigation from './navigation/navigation';
 import { Merriweather } from 'next/font/google';
 import { Gabarito } from 'next/font/google';
-import Navigation from './navigation/navigation';
 
 export const merriweather = Merriweather({
     subsets: ['latin'],
@@ -22,7 +22,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={`${merriweather.variable} font-serif`}>
+            <body
+                className={`${merriweather.variable} font-serif ${gabarito.variable} overscroll-none`}
+            >
                 <Navigation />
                 {children}
             </body>

@@ -28,7 +28,7 @@ class API {
         )
             .then((res) => {
                 if (res.ok) {
-                    return res.json();
+                    return res;
                 }
                 throw new Error(res.text());
             })

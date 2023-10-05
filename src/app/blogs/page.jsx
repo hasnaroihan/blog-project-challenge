@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import BlogItem from './blogItem';
 import api from '../api/api';
+import Pagination from '../components/pagination';
 
 export default async function Blogs({ searchParams }) {
     // const dummyData = {
@@ -20,15 +21,34 @@ export default async function Blogs({ searchParams }) {
     // 		}
     // 	]
     // }
-
-    const data = await api.getPosts(searchParams.page, searchParams.max);
+    let totalPage = 1;
+    const data = await api
+        .getPosts(searchParams.page, searchParams.max)
+        .then((res) => {
+            totalPage = res.headers.get('x-pagination-pages');
+            return res.json();
+        });
 
     return (
-        <main>
+        <main className="w-screen p-5">
             <Suspense fallback={<p>Fetching posts...</p>}>
-                {data.map((blog) => {
-                    return <BlogItem data={blog} key={blog.id} />;
-                })}
+                <Pagination
+                    page={searchParams.page}
+                    totalPage={totalPage}
+                    maxResult={searchParams.max}
+                    href="/blogs"
+                />
+                <div className="flex flex-col divide-y">
+                    {data.map((blog) => {
+                        return <BlogItem data={blog} key={blog.id} />;
+                    })}
+                </div>
+                <Pagination
+                    page={searchParams.page}
+                    totalPage={totalPage}
+                    maxResult={searchParams.max}
+                    href="/blogs"
+                />
             </Suspense>
         </main>
     );
