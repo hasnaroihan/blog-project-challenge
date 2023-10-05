@@ -1,7 +1,5 @@
-import Image from 'next/image';
-import Navigation from './navigation/navigation';
 import { redirect } from 'next/navigation';
 
 export default function Home() {
-    redirect('/blogs');
+    redirect('/blogs?page=1&max=3');
 }
