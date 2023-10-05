@@ -20,7 +20,7 @@ class API {
         };
     }
 
-    async getPosts(page = 1, max = 3) {
+    async getPosts(page = 1, max = 5) {
         this.init('GET', 'application/json');
         return await fetch(
             `${this.api_url}/posts?page=${page}&per_page=${max}`,

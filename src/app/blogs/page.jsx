@@ -38,7 +38,7 @@ export default async function Blogs({ searchParams }) {
                     maxResult={searchParams.max}
                     href="/blogs"
                 />
-                <div className="flex flex-col divide-y">
+                <div className="w-full flex flex-col md:flex-row items-start md:justify-evenly divide-y md:flex-wrap md:gap-5">
                     {data.map((blog) => {
                         return <BlogItem data={blog} key={blog.id} />;
                     })}

@@ -10,7 +10,7 @@ export default function Navigation() {
     return (
         <div className="sticky top-0 w-screen flex min-h-max flex-row gap-5 px-3 font-bold bg-white shadow-md">
             <Link
-                href={'/blogs?page=1&max=3'}
+                href={'/blogs?page=1&max=10'}
                 onClick={handlePage}
                 id="blog"
                 className={`w-max h-full px-5 py-3 ${
