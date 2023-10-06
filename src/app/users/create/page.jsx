@@ -26,7 +26,7 @@ export default function CreateUser() {
         //     router.push('/users?page=1&max=10');
         // });
 
-        await fetch('http://localhost:3000/api/create', {
+        await fetch('/api/create', {
             'method': 'POST',
             'headers': {
                 'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ export default function FormUpdateUser({ data }) {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const res = await fetch('http://localhost:3000/api/update', {
+        const res = await fetch('/api/update', {
             'method': 'PUT',
             'headers': {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default function FormUpdateUser({ data }) {
     async function handleDelete(e) {
         e.preventDefault();
 
-        await fetch(`http://localhost:3000/api/delete/${data.id}`, {
+        await fetch(`/delete/${data.id}`, {
             'method': 'DELETE',
             'headers': {
                 'Content-Type': 'application/json',
