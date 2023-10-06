@@ -1,20 +1,23 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Navigation() {
-    const [page, setPage] = useState('blog');
-    const handlePage = (e) => {
-        setPage(e.currentTarget.id);
-    };
+    const pathname = usePathname();
+    const [page, setPage] = useState(location.pathname.slice(0, 6));
+
+    useEffect(() => {
+        setPage(location.pathname.slice(0, 6));
+    }, [pathname]);
+
     return (
         <div className="sticky top-0 w-screen flex min-h-max flex-row gap-5 px-3 font-bold bg-white shadow-md">
             <Link
                 href={'/blogs?page=1&max=10'}
-                onClick={handlePage}
-                id="blog"
+                id="/blogs"
                 className={`w-max h-full px-5 py-3 ${
-                    page == 'blog'
+                    page == '/blogs'
                         ? 'bg-gradient-to-b from-teal-600 from-60% to-green-200 text-white'
                         : 'text-black'
                 }`}
@@ -23,10 +26,9 @@ export default function Navigation() {
             </Link>
             <Link
                 href={'/users?page=1&max=10'}
-                onClick={handlePage}
-                id="user"
+                id="/users"
                 className={`w-max h-full px-5 py-3 ${
-                    page == 'user'
+                    page == '/users'
                         ? 'bg-gradient-to-b from-teal-600 from-60% to-green-200 text-white'
                         : 'text-black'
                 }`}
