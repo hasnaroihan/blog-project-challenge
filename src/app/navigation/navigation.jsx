@@ -22,7 +22,7 @@ export default function Navigation() {
                 Blogs
             </Link>
             <Link
-                href={'/users'}
+                href={'/users?page=1&max=10'}
                 onClick={handlePage}
                 id="user"
                 className={`w-max h-full px-5 py-3 ${

@@ -20,7 +20,7 @@ class API {
         };
     }
 
-    async getPosts(page = 1, max = 5) {
+    async getPosts(page = 1, max = 10) {
         this.init('GET', 'application/json');
         return await fetch(
             `${this.api_url}/posts?page=${page}&per_page=${max}`,
@@ -66,12 +66,15 @@ class API {
             .catch((err) => console.log(err));
     }
 
-    async getUsers() {
+    async getUsers(page = 1, max = 10) {
         this.init('GET', 'application/json');
-        return await fetch(`${this.api_url}/users`, this.clients)
+        return await fetch(
+            `${this.api_url}/users?page=${page}&per_page=${max}`,
+            this.clients,
+        )
             .then((res) => {
                 if (res.ok) {
-                    return res.json();
+                    return res;
                 }
                 throw new Error(res.text());
             })
