@@ -10,8 +10,9 @@ class API {
         this.clients = {
             'method': method,
             'headers': {
+                'Accept': content_type,
                 'Content-Type': content_type,
-                'Authorization': 'Bearer ' + this.api_token,
+                'Authorization': this.api_token,
             },
             'next': {
                 'revalidate': revalidate,
@@ -113,27 +114,18 @@ class API {
     }
 
     async createUser(name, gender, email, status = 'active') {
-        this.init('POST', 'application/json', {
+        this.init('POST', 'application/json', 0, {
             'name': name,
             'gender': gender,
             'email': email,
             'status': status,
         });
-        return await fetch(
-            `${this.api_url}/users?access-token=${this.api_token}`,
-            this.clients,
-        )
-            .then((res) => {
-                if (res.status == 201) {
-                    return res;
-                }
-                throw new Error(res.status);
-            })
-            .catch((err) => console.log(err));
+        return await fetch(`${this.public_api_url}/users`, this.clients).then(
+            (res) => res,
+        );
     }
 
     async updateUser(id, name, email, status) {
-        console.log(status);
         this.init('PUT', 'application/json', 0, {
             'name': name,
             'email': email,
@@ -141,26 +133,16 @@ class API {
         });
         return await fetch(`${this.api_url}/users/${id}`, this.clients)
             .then((res) => {
-                if (res.ok) {
-                    return res;
-                }
-                throw new Error(res.status);
+                res;
             })
             .catch((err) => console.log(err));
     }
 
     async deleteUser(id) {
-        return await fetch(
-            `${this.api_url}/users/${id}`,
-            this.init('DELETE', 'application/json'),
-        )
-            .then((res) => {
-                if (res.ok) {
-                    return res.status;
-                }
-                throw new Error(res.text());
-            })
-            .catch((err) => console.log(err));
+        this.init('DELETE', 'application/json');
+        return await fetch(`${this.api_url}/users/${id}`, this.clients).then(
+            (res) => res,
+        );
     }
 }
 const api = new API();

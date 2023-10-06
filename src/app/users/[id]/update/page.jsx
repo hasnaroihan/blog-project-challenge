@@ -10,7 +10,7 @@ export default async function UpdateUser({ params }) {
             <div className="w-full md:w-2/5 lg:w-1/5 h-max m-5 bg-white flex flex-col items-start justify-center p-5 rounded-xl">
                 <div className="w-full flex items-center justify-between mb-4">
                     <p className="font-medium text-lg">Update User</p>
-                    <Link href="/users" className="text-red-500">
+                    <Link href="/users?page=1&max=10" className="text-red-500">
                         <CloseRounded />
                     </Link>
                 </div>

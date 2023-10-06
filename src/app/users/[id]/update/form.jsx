@@ -24,6 +24,25 @@ export default function FormUpdateUser({ data }) {
         }).then((res) => {
             if (res.ok) {
                 router.push('/users?page=1&max=10');
+            } else {
+                alert(res.status + ' ' + res.statusText);
+            }
+        });
+    }
+
+    async function handleDelete(e) {
+        e.preventDefault();
+
+        await fetch(`http://localhost:3000/api/delete/${data.id}`, {
+            'method': 'DELETE',
+            'headers': {
+                'Content-Type': 'application/json',
+            },
+        }).then((res) => {
+            if (res.ok) {
+                router.push('/users?page=1&max=10');
+            } else {
+                alert(res.status + ' ' + res.statusText);
             }
         });
     }
@@ -55,7 +74,7 @@ export default function FormUpdateUser({ data }) {
                         id="active"
                         value="active"
                         name="status"
-                        defaultChecked={data.active == 'active' ? true : false}
+                        defaultChecked={data.status === 'active'}
                         required
                     />
                     Active
@@ -66,22 +85,29 @@ export default function FormUpdateUser({ data }) {
                         className="mr-2"
                         type="radio"
                         id="inactive"
-                        value="active"
+                        value="inactive"
                         name="status"
-                        defaultChecked={
-                            data.active == 'inactive' ? true : false
-                        }
+                        defaultChecked={data.status == 'inactive'}
                     />
                     Inactive
                 </label>
             </div>
+            <div className="w-full flex flex-row justify-between">
+                <button
+                    className="self-end bg-red-600 rounded-lg py-2 px-5 text-white hover:bg-red-700"
+                    type="button"
+                    onClick={handleDelete}
+                >
+                    Delete
+                </button>
 
-            <button
-                className="self-end bg-teal-600 rounded-lg py-2 px-5 text-white hover:bg-teal-700"
-                type="submit"
-            >
-                Submit
-            </button>
+                <button
+                    className="self-end bg-teal-600 rounded-lg py-2 px-5 text-white hover:bg-teal-700"
+                    type="submit"
+                >
+                    Submit
+                </button>
+            </div>
         </form>
     );
 }

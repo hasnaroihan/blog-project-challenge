@@ -1,13 +1,15 @@
 import api from '../api';
 
 export async function POST(request) {
-    const req = await request.json();
-    const res = await api.createUser(
-        req.name,
-        req.gender,
-        req.email,
-        req.status,
-    );
-    console.log(res);
+    const res = await request.json().then(async (req) => {
+        // console.log(req);
+        return await api.createUser(
+            req.name,
+            req.gender,
+            req.email,
+            req.status,
+        );
+    });
+    // console.log(req);
     return res;
 }
