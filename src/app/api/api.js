@@ -66,6 +66,18 @@ class API {
             .catch((err) => console.log(err));
     }
 
+    async getAllUsers() {
+        this.init('GET', 'application/json');
+        return await fetch(`${this.api_url}/users`, this.clients)
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(res.text());
+            })
+            .catch((err) => console.log(err));
+    }
+
     async getUsers(page = 1, max = 10) {
         this.init('GET', 'application/json');
         return await fetch(

@@ -22,8 +22,10 @@ export default function Pagination({ page, totalPage, maxResult, href }) {
         }
     }, [page]);
 
-    return (
-        <div className="font-sans flex flex-row gap-3 items-center justify-center h-fit">
+    return totalPage == 1 ? (
+        <></>
+    ) : (
+        <div className="w-fit font-sans flex flex-row gap-3 items-center justify-center self-center md:self-end h-fit">
             <Link
                 className={`${currentPage <= 2 ? 'hidden' : 'text-teal-600'}`}
                 href={`${href}?page=${currentPage - 1}&max=${maxResult}`}

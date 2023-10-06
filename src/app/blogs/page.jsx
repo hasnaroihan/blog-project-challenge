@@ -30,25 +30,30 @@ export default async function Blogs({ searchParams }) {
         });
 
     return (
-        <main className="w-screen p-5">
+        <main className="w-screen p-5 flex flex-col items-center justify-center p-5">
             <Suspense fallback={<p>Fetching posts...</p>}>
-                <Pagination
-                    page={searchParams.page}
-                    totalPage={totalPage}
-                    maxResult={searchParams.max}
-                    href="/blogs"
-                />
+                <div className="justify-center">
+                    <Pagination
+                        page={searchParams.page}
+                        totalPage={totalPage}
+                        maxResult={searchParams.max}
+                        href="/blogs"
+                    />
+                </div>
+
                 <div className="w-full flex flex-col md:flex-row items-start md:justify-evenly divide-y md:flex-wrap md:gap-5">
                     {data.map((blog) => {
                         return <BlogItem data={blog} key={blog.id} />;
                     })}
                 </div>
-                <Pagination
-                    page={searchParams.page}
-                    totalPage={totalPage}
-                    maxResult={searchParams.max}
-                    href="/blogs"
-                />
+                <div className="justify-center">
+                    <Pagination
+                        page={searchParams.page}
+                        totalPage={totalPage}
+                        maxResult={searchParams.max}
+                        href="/blogs"
+                    />
+                </div>
             </Suspense>
         </main>
     );
