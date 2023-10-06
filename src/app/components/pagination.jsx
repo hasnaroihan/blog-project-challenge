@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 function generateDisplayPage(page, totalPage, maxPage) {
@@ -15,12 +16,11 @@ function generateDisplayPage(page, totalPage, maxPage) {
     }
 }
 export default function Pagination({ page, totalPage, maxResult, href }) {
+    const searchParams = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
-        if (page) {
-            setCurrentPage(Number(page));
-        }
-    }, [page]);
+        setCurrentPage(Number(searchParams.get('page')));
+    }, [searchParams]);
 
     return totalPage == 1 ? (
         <></>
@@ -28,13 +28,15 @@ export default function Pagination({ page, totalPage, maxResult, href }) {
         <div className="w-fit font-sans flex flex-row gap-3 items-center justify-center self-center md:self-end h-fit">
             <Link
                 className={`${currentPage <= 2 ? 'hidden' : 'text-teal-600'}`}
-                href={`${href}?page=${currentPage - 1}&max=${maxResult}`}
+                href={`${href}?page=${currentPage - 1}&max=${searchParams.get(
+                    'max',
+                )}`}
             >
                 {'<'}
             </Link>
             <Link
                 className={`${currentPage == 1 ? 'hidden' : 'text-teal-600'}`}
-                href={`${href}?page=1&max=${maxResult}`}
+                href={`${href}?page=1&max=${searchParams.get('max')}`}
             >
                 1
             </Link>
@@ -48,7 +50,7 @@ export default function Pagination({ page, totalPage, maxResult, href }) {
                             ? 'font-bold text-lg text-green-200 bg-teal-600 px-2 rounded-lg'
                             : 'text-teal-600'
                     }`}
-                    href={`${href}?page=${item}&max=${maxResult}`}
+                    href={`${href}?page=${item}&max=${searchParams.get('max')}`}
                     key={item}
                 >
                     {item}
@@ -65,7 +67,9 @@ export default function Pagination({ page, totalPage, maxResult, href }) {
                 className={`${
                     currentPage > totalPage - 3 ? 'hidden' : 'text-teal-600'
                 }`}
-                href={`${href}?page=${totalPage}&max=${maxResult}`}
+                href={`${href}?page=${totalPage}&max=${searchParams.get(
+                    'max',
+                )}`}
             >
                 {totalPage}
             </Link>
@@ -73,7 +77,9 @@ export default function Pagination({ page, totalPage, maxResult, href }) {
                 className={`${
                     currentPage >= totalPage - 3 ? 'hidden' : 'text-teal-600'
                 }`}
-                href={`${href}?page=${currentPage + 1}&max=${maxResult}`}
+                href={`${href}?page=${currentPage + 1}&max=${searchParams.get(
+                    'max',
+                )}`}
             >
                 {'>'}
             </Link>

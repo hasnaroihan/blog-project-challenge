@@ -3,20 +3,16 @@ import SearchBar from './searchBar';
 import Link from 'next/link';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import Pagination from '../components/pagination';
+import { useSearchParams } from 'next/navigation';
 
-export default async function UserList({ props, userList }) {
+export default async function UserList({ totalPage, query, userList }) {
     return (
         <div className="w-full md:w-4/5 flex flex-col justify-center md:divide-y gap-3 md:gap-0 font-sans">
             <div className="flex flex-col md:flex-row justify-between py-2">
                 <div className="hidden md:block">
-                    <SearchBar query={props.query} />
+                    <SearchBar query={query} />
                 </div>
-                <Pagination
-                    page={props.page}
-                    maxResult={props.max}
-                    totalPage={props.totalPage}
-                    href={'/users'}
-                />
+                <Pagination totalPage={totalPage} href={'/users'} />
             </div>
 
             <div className="w-full grid grid-cols-8 font-medium border-b-2 gap-3 p-2 items-center">
@@ -29,7 +25,7 @@ export default async function UserList({ props, userList }) {
                     Status
                 </div>
                 <div className="col-span-5 self-center justify-self-start block md:hidden">
-                    <SearchBar query={props.query} />
+                    <SearchBar query={query} />
                 </div>
                 <div className="col-span-3 md:col-span-1 col-end-9 justify-self-end md:justify-self-center bg-slate-600 text-white p-2 rounded-lg">
                     <Link href="/users/create">
@@ -47,12 +43,7 @@ export default async function UserList({ props, userList }) {
             ) : (
                 <p className="py-2">No user found</p>
             )}
-            <Pagination
-                page={props.page}
-                maxResult={props.max}
-                totalPage={props.totalPage}
-                href={'/users'}
-            />
+            <Pagination totalPage={totalPage} href={'/users'} />
         </div>
     );
 }

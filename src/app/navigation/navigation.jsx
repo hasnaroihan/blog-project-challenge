@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 
 export default function Navigation() {
     const pathname = usePathname();
-    const [page, setPage] = useState(location.pathname.slice(0, 6));
+    const [page, setPage] = useState(pathname.slice(0, 6));
 
     useEffect(() => {
-        setPage(location.pathname.slice(0, 6));
+        setPage(pathname.slice(0, 6));
     }, [pathname]);
 
     return (

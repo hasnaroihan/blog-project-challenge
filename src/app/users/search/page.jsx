@@ -17,12 +17,8 @@ export default async function SearchUser({ searchParams }) {
         <main className="w-screen flex flex-col items-center justify-center p-5 text-normal lg:text-lg">
             <Suspense fallback={<p>Finding user...</p>}>
                 <UserList
-                    props={{
-                        page: 1,
-                        max: userList.length,
-                        totalPage: 1,
-                        query: searchParams.query,
-                    }}
+                    totalPage="1"
+                    query={searchParams.query}
                     userList={userList}
                 />
             </Suspense>

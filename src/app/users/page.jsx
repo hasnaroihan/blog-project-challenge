@@ -41,15 +41,7 @@ export default async function Users({ searchParams }) {
 
     return (
         <main className="w-screen flex flex-col items-center justify-center p-5 text-normal lg:text-lg">
-            <UserList
-                props={{
-                    page: searchParams.page,
-                    max: searchParams.max,
-                    totalPage: totalPage,
-                    query: '',
-                }}
-                userList={userList}
-            />
+            <UserList totalPage={totalPage} query="" userList={userList} />
         </main>
     );
 }
