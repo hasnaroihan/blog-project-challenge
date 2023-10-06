@@ -1,8 +1,7 @@
 'use client';
-import api from '@/app/api/api';
-import { redirect } from 'next/navigation';
+
 import Link from 'next/link';
-import { Input } from 'postcss';
+import { CloseRounded } from '@mui/icons-material';
 
 export default function CreateUser() {
     async function handleSubmit(e) {
@@ -20,75 +19,96 @@ export default function CreateUser() {
                 'gender': formData.get('gender'),
                 'status': formData.get('status'),
             }),
+        }).then((res) => {
+            router.push('/users?page=1&max=10');
         });
-
-        console.log(res);
-        // if (res) {
-        //     redirect('/users');
-        // }
     }
     return (
-        <div className="fixed pin w-screen h-screen flex items-center justify-center z-10 bg-slate-400 bg-opacity-50">
-            <div className="w-max h-max bg-white">
-                <Link href="/users" className="bg-red-500">
-                    exit
-                </Link>
-                <form onSubmit={handleSubmit} className="flex flex-col">
+        <div className="fixed pin w-screen h-screen flex items-center justify-center z-10 bg-slate-400 bg-opacity-50 font-sans">
+            <div className="w-full md:w-2/5 lg:w-1/5 h-max m-5 bg-white flex flex-col items-start justify-center p-5 rounded-xl">
+                <div className="w-full flex items-center justify-between mb-4">
+                    <p className="font-medium text-lg">Create New User</p>
+                    <Link href="/users" className="text-red-500">
+                        <CloseRounded />
+                    </Link>
+                </div>
+
+                <form
+                    onSubmit={handleSubmit}
+                    className="w-full flex flex-col gap-3"
+                >
                     <input
+                        className="border-2 rounded-lg w-full p-2"
                         type="text"
                         name="name"
                         placeholder="Name"
                         required
                     />
                     <input
+                        className="border-2 rounded-lg w-full p-2"
                         type="email"
                         name="email"
                         placeholder="Email"
                         required
                     />
+                    <div className="grid grid-cols-2">
+                        <div className="flex flex-col gap-1">
+                            <p className="text-teal-600">Gender</p>
+                            <label>
+                                <input
+                                    className="mr-2"
+                                    type="radio"
+                                    id="male"
+                                    value="male"
+                                    name="gender"
+                                    required
+                                />
+                                Male
+                            </label>
+                            <label>
+                                <input
+                                    className="mr-2"
+                                    type="radio"
+                                    id="female"
+                                    value="female"
+                                    name="gender"
+                                />
+                                Female
+                            </label>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <p className="text-teal-600">Status</p>
+                            <label>
+                                <input
+                                    className="mr-2"
+                                    type="radio"
+                                    id="active"
+                                    value="active"
+                                    name="status"
+                                />
+                                Active
+                            </label>
 
-                    <label>
-                        <input
-                            type="radio"
-                            id="male"
-                            value="male"
-                            name="gender"
-                            required
-                        />
-                        Male
-                    </label>
+                            <label>
+                                <input
+                                    className="mr-2"
+                                    type="radio"
+                                    id="inactive"
+                                    value="active"
+                                    name="status"
+                                    required
+                                />
+                                Inactive
+                            </label>
+                        </div>
+                    </div>
 
-                    <label>
-                        <input
-                            type="radio"
-                            id="female"
-                            value="female"
-                            name="gender"
-                        />
-                        Female
-                    </label>
-
-                    <label>
-                        <input
-                            type="radio"
-                            id="active"
-                            value="active"
-                            name="status"
-                        />
-                        Active
-                    </label>
-
-                    <label>
-                        <input
-                            type="radio"
-                            id="inactive"
-                            value="active"
-                            name="status"
-                            required
-                        />
-                        Inactive
-                    </label>
-                    <button type="submit">Submit</button>
+                    <button
+                        className="self-end bg-teal-600 rounded-lg py-2 px-5 text-white hover:bg-teal-700"
+                        type="submit"
+                    >
+                        Submit
+                    </button>
                 </form>
             </div>
         </div>
