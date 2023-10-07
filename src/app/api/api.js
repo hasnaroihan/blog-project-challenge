@@ -3,11 +3,10 @@ class API {
         this.api_url = process.env.API_URL;
         this.public_api_url = process.env.NEXT_PUBLIC_API_URL;
         this.api_token = process.env.API_TOKEN;
-        this.clients = null;
     }
 
-    init(method, content_type, body = null, revalidate = 60) {
-        this.clients = {
+    init(method, content_type, body, revalidate = 60) {
+        let clients = {
             'method': method,
             'headers': {
                 'Accept': content_type,
@@ -19,13 +18,14 @@ class API {
             },
             'body': body,
         };
+
+        return clients;
     }
 
     async getPosts(page = 1, max = 10) {
-        this.init('GET', 'application/json');
         return await fetch(
             `${this.api_url}/posts?page=${page}&per_page=${max}`,
-            this.clients,
+            this.init('GET', 'application/json', null),
         )
             .then((res) => {
                 if (res.ok) {
@@ -37,8 +37,10 @@ class API {
     }
 
     async getPostDetails(id) {
-        this.init('GET', 'application/json');
-        return await fetch(`${this.api_url}/posts/${id}`, this.clients)
+        return await fetch(
+            `${this.api_url}/posts/${id}`,
+            this.init('GET', 'application/json', null),
+        )
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -56,8 +58,10 @@ class API {
     }
 
     async getPostComments(id) {
-        this.init('GET', 'application/json');
-        return await fetch(`${this.api_url}/posts/${id}/comments`, this.clients)
+        return await fetch(
+            `${this.api_url}/posts/${id}/comments`,
+            this.init('GET', 'application/json', null),
+        )
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -68,8 +72,10 @@ class API {
     }
 
     async getAllUsers() {
-        this.init('GET', 'application/json');
-        return await fetch(`${this.api_url}/users`, this.clients)
+        return await fetch(
+            `${this.api_url}/users`,
+            this.init('GET', 'application/json', null),
+        )
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -80,10 +86,9 @@ class API {
     }
 
     async getUsers(page = 1, max = 10) {
-        this.init('GET', 'application/json');
         return await fetch(
             `${this.api_url}/users?page=${page}&per_page=${max}`,
-            this.clients,
+            this.init('GET', 'application/json', null, 0),
         )
             .then((res) => {
                 if (res.ok) {
@@ -95,8 +100,10 @@ class API {
     }
 
     async getUserDetails(id) {
-        this.init('GET', 'application/json');
-        return await fetch(`${this.api_url}/users/${id}`, this.clients)
+        return await fetch(
+            `${this.api_url}/users/${id}`,
+            this.init('GET', 'application/json', null),
+        )
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -114,35 +121,46 @@ class API {
     }
 
     async createUser(name, gender, email, status = 'active') {
-        this.init('POST', 'application/json', 0, {
-            'name': name,
-            'gender': gender,
-            'email': email,
-            'status': status,
+        return await fetch(
+            `${this.public_api_url}/users`,
+            this.init('POST', 'application/json', {
+                'name': name,
+                'gender': gender,
+                'email': email,
+                'status': status,
+            }),
+        ).then((res) => {
+            console.log(res);
+            return res;
         });
-        return await fetch(`${this.public_api_url}/users`, this.clients).then(
-            (res) => res,
-        );
     }
 
     async updateUser(id, name, email, status) {
-        this.init('PUT', 'application/json', 0, {
-            'name': name,
-            'email': email,
-            'status': status,
-        });
-        return await fetch(`${this.api_url}/users/${id}`, this.clients)
+        return await fetch(
+            `${this.api_url}/users/${id}`,
+            this.init('PATCH', 'application/json', {
+                'name': name,
+                'email': email,
+                'status': status,
+            }),
+        )
             .then((res) => {
-                res;
+                console.log(res);
+                return res;
             })
             .catch((err) => console.log(err));
     }
 
     async deleteUser(id) {
-        this.init('DELETE', 'application/json');
-        return await fetch(`${this.api_url}/users/${id}`, this.clients).then(
-            (res) => res,
-        );
+        return await fetch(`${this.api_url}/users/${id}`, {
+            'method': 'DELETE',
+            'headers': {
+                'Authorization': this.api_token,
+            },
+        }).then((res) => {
+            console.log(res);
+            return res;
+        });
     }
 }
 const api = new API();

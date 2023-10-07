@@ -1,6 +1,4 @@
-import { use } from 'react';
 import UserList from './userList';
-import SearchBar from './searchBar';
 import api from '../api/api';
 
 export default async function Users({ searchParams }) {

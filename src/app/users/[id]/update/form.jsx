@@ -33,13 +33,17 @@ export default function FormUpdateUser({ data }) {
     async function handleDelete(e) {
         e.preventDefault();
 
-        await fetch(`/delete/${data.id}`, {
-            'method': 'DELETE',
+        await fetch(`/api/delete/${data.id}`, {
+            'method': 'POST',
             'headers': {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
+            'body': JSON.stringify({
+                'id': data.id,
+            }),
         }).then((res) => {
-            if (res.ok) {
+            if (res.status == 204) {
                 router.push('/users?page=1&max=10');
             } else {
                 alert(res.status + ' ' + res.statusText);
