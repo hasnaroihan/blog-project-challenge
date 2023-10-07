@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { CloseRounded } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
-import api from '@/app/api/api';
 
 export default function CreateUser() {
     const router = useRouter();
@@ -11,21 +10,6 @@ export default function CreateUser() {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        // const res = await fetch('http://localhost:3000/api/create', {
-        //     'method': 'POST',
-        //     'headers': {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     'body': JSON.stringify({
-        //         'name': formData.get('name'),
-        //         'email': formData.get('email'),
-        //         'gender': formData.get('gender'),
-        //         'status': formData.get('status'),
-        //     }),
-        // }).then((res) => {
-        //     router.push('/users?page=1&max=10');
-        // });
-
         await fetch('/api/create', {
             'method': 'POST',
             'headers': {
@@ -51,7 +35,10 @@ export default function CreateUser() {
             <div className="w-full md:w-2/5 lg:w-1/5 h-max m-5 bg-white flex flex-col items-start justify-center p-5 rounded-xl">
                 <div className="w-full flex items-center justify-between mb-4">
                     <p className="font-medium text-lg">Create New User</p>
-                    <Link href="/users" className="text-red-500">
+                    <Link
+                        href="/users?page=1&max=10"
+                        className="text-green-500"
+                    >
                         <CloseRounded />
                     </Link>
                 </div>
