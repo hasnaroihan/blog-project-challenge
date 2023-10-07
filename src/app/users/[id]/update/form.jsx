@@ -10,9 +10,10 @@ export default function FormUpdateUser({ data }) {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const res = await fetch('/api/update', {
-            'method': 'PUT',
+        await fetch(`/api/update/${data.id}`, {
+            'method': 'PATCH',
             'headers': {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             'body': JSON.stringify({

@@ -138,11 +138,16 @@ class API {
     async updateUser(id, name, email, status) {
         return await fetch(
             `${this.api_url}/users/${id}`,
-            this.init('PATCH', 'application/json', {
-                'name': name,
-                'email': email,
-                'status': status,
-            }),
+            this.init(
+                'PATCH',
+                'application/json',
+                JSON.stringify({
+                    'name': name,
+                    'email': email,
+                    'status': status,
+                }),
+                0,
+            ),
         )
             .then((res) => {
                 console.log(res);
