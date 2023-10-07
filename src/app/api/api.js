@@ -120,6 +120,20 @@ class API {
             });
     }
 
+    async searchUser(name) {
+        return await fetch(
+            `${this.api_url}/users?name=${name}`,
+            this.init('GET', 'application/json', null),
+        )
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(res.status + ' ' + res.statusText);
+            })
+            .catch((err) => console.log(err));
+    }
+
     async createUser(name, gender, email, status = 'active') {
         return await fetch(
             `${this.public_api_url}/users`,

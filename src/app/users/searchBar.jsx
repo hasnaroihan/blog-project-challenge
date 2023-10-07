@@ -12,13 +12,13 @@ export default function SearchBar({ query }) {
     };
     const handleKeyEnter = (e) => {
         if (e.keyCode == 13) {
-            router.push(`/users/search?query=${value}`);
+            router.push(`/users/search?name=${value}`);
         }
     };
     return (
         <Input
             className="self-start"
-            placeholder={query ? `result:${query}` : 'search user'}
+            placeholder={query ? `result:${query}` : 'search name'}
             startAdornment={
                 <InputAdornment position="start">
                     <SearchRoundedIcon />
