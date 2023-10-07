@@ -27,6 +27,13 @@ export default function RootLayout({ children }) {
             >
                 <Navigation />
                 {children}
+                <a
+                    className="absolute right-2 font-sans text-xs text-slate-500"
+                    href="https://www.flaticon.com/free-icons/cake"
+                    title="cake icons"
+                >
+                    Cake icons created by Freepik - Flaticon
+                </a>
             </body>
         </html>
     );
