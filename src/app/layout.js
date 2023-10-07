@@ -16,7 +16,7 @@ export const gabarito = Gabarito({
 
 export const metadata = {
     title: 'Blog Project Challenge',
-    description: 'Simple blog project with Next.js',
+    description: 'Simple blog project with Next.js and Go Rest API',
 };
 
 export default function RootLayout({ children }) {
