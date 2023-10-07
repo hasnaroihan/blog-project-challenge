@@ -1,6 +1,7 @@
 import UserList from './userList';
 import api from '../api/api';
 
+export const revalidate = 0;
 export default async function Users({ searchParams }) {
     // const dummyUserList = {
     //     status: 200,

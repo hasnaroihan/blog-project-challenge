@@ -5,7 +5,7 @@ class API {
         this.api_token = process.env.API_TOKEN;
     }
 
-    init(method, content_type, body, revalidate = 60) {
+    init(method, content_type, body, revalidate = 0) {
         let clients = {
             'method': method,
             'headers': {
@@ -25,7 +25,7 @@ class API {
     async getPosts(page = 1, max = 10) {
         return await fetch(
             `${this.api_url}/posts?page=${page}&per_page=${max}`,
-            this.init('GET', 'application/json', null),
+            this.init('GET', 'application/json', null, 10),
         )
             .then((res) => {
                 if (res.ok) {
@@ -88,7 +88,7 @@ class API {
     async getUsers(page = 1, max = 10) {
         return await fetch(
             `${this.api_url}/users?page=${page}&per_page=${max}`,
-            this.init('GET', 'application/json', null, 0),
+            this.init('GET', 'application/json', null),
         )
             .then((res) => {
                 if (res.ok) {
@@ -123,14 +123,17 @@ class API {
     async createUser(name, gender, email, status = 'active') {
         return await fetch(
             `${this.public_api_url}/users`,
-            this.init('POST', 'application/json', {
-                'name': name,
-                'gender': gender,
-                'email': email,
-                'status': status,
-            }),
+            this.init(
+                'POST',
+                'application/json',
+                JSON.stringify({
+                    'name': name,
+                    'gender': gender,
+                    'email': email,
+                    'status': status,
+                }),
+            ),
         ).then((res) => {
-            console.log(res);
             return res;
         });
     }
@@ -146,7 +149,6 @@ class API {
                     'email': email,
                     'status': status,
                 }),
-                0,
             ),
         )
             .then((res) => {
