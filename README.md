@@ -42,7 +42,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 **Deployed site of this project at https://martabak-project-123.vercel.app**
-
-### Additional Notes
-
-Create, update, and delete user API currently only possible in local server, not in deployed live server
